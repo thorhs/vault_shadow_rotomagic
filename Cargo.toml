@@ -10,6 +10,7 @@ description = "Rotates a password directly in the shadow file, an stores the new
 [dependencies]
 clap = { version = "4", features = ["env", "cargo", "derive"] }
 color-eyre = "0.6"
+gethostname = "0.4"
 pwhash = "1"
 rand = "0.8"
 tokio = { version = "1", features = ["macros", "rt-multi-thread", "fs"] }

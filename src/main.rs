@@ -52,15 +52,30 @@ struct Options {
 
     /// Vault kv2 secret path
     #[arg(long)]
-    vault_path: String,
+    vault_path: Option<String>,
+    /*
+        /// Verify access to files before proceeding
+        #[arg(long)]
+        safe: bool,
 
-    /// Verify access to files before proceeding
-    #[arg(long)]
-    safe: bool,
+        /// Lock file while editing
+        #[arg(long)]
+        lock: bool,
+    */
+}
 
-    /// Lock file while editing
-    #[arg(long)]
-    lock: bool,
+impl Options {
+    fn get_path(&self) -> String {
+        if let Some(ref path) = self.vault_path {
+            return path.to_string();
+        }
+
+        let hostname = gethostname::gethostname();
+
+        let hostname = hostname.to_string_lossy();
+
+        format!("{}/{}", hostname, self.user)
+    }
 }
 
 async fn verify_shadow(options: &Options) -> Result<bool> {
@@ -179,6 +194,7 @@ async fn vault_store_password(
     password: &str,
     hash: &str,
 ) -> Result<()> {
+    #[allow(unused_assignments)]
     let mut unix_timestamp = String::new();
 
     let mut data = std::collections::HashMap::<&str, &str>::new();
@@ -194,7 +210,7 @@ async fn vault_store_password(
     vaultrs::kv2::set(
         vault_client,
         &options.vault_mount,
-        &options.vault_path,
+        &options.get_path(),
         &data,
     )
     .await?;
@@ -209,10 +225,10 @@ async fn main() -> Result<()> {
     let options = Options::parse();
 
     println!("User: {}", options.user);
-    println!("Shadow: {:?}", options.shadow);
+    println!("Shadow file: {:?}", options.shadow);
 
-    println!("Safe: {:?}", options.safe);
-    println!("Lock: {:?}", options.lock);
+    // println!("Safe: {:?}", options.safe);
+    // println!("Lock: {:?}", options.lock);
 
     println!(
         "File verification status: {}",
