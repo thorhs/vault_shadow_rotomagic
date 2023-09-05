@@ -11,7 +11,7 @@ User=root
 Group=root
 WorkingDirectory=/tmp
 SyslogIdentifier=vault-shadow-rotomagic
-Restart=off
+Restart=no
 ExecStart=/usr/local/bin/vault_shadow_rotomagic
 EnvironmentFile=/etc/sysconfig/vault_shadow_rotomagic
 
