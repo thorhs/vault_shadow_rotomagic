@@ -11,47 +11,47 @@ use vaultrs::client::{VaultClient, VaultClientSettingsBuilder};
 #[command(author, version, about)]
 struct Options {
     /// Username to change password
-    #[arg(long, env)]
+    #[arg(long, env = "ROTOMAGIC_USER")]
     user: String,
 
     /// Password length
-    #[arg(long, env, default_value_t = 32)]
+    #[arg(long, env = "ROTOMAGIC_PASSWORD_LENGTH", default_value_t = 32)]
     password_length: u8,
 
     /// Shadow file to change (for testing or otherwise)
-    #[arg(long, env, default_value = "/etc/shadow")]
+    #[arg(long, env = "ROTOMAGIC_SHADOW", default_value = "/etc/shadow")]
     shadow: PathBuf,
 
     /// Vault URL, if not set will use VAULT_ADDR
-    #[arg(long, env)]
+    #[arg(long, env = "ROTOMAGIC_VAULT_ADDR")]
     vault_addr: String,
 
     /// Vault namespace
-    #[arg(long, env)]
+    #[arg(long, env = "ROTOMAGIC_VAULT_NAMESPACE")]
     vault_namespace: Option<String>,
 
     /// Vault token, if not set will use VAULT_TOKEN
-    #[arg(long, env)]
+    #[arg(long, env = "ROTOMAGIC_VAULT_TOKEN")]
     vault_token: Option<String>,
 
     /// Vault token file, if not set will use VAULT_TOKEN
-    #[arg(long, env)]
+    #[arg(long, env = "ROTOMAGIC_VAULT_TOKEN_PATH")]
     vault_token_path: Option<PathBuf>,
 
     /// Vault CA certificate, defaults to operating system CA store
-    #[arg(long, env)]
+    #[arg(long, env = "ROTOMAGIC_VAULT_CA_FILE")]
     vault_ca_file: Option<PathBuf>,
 
     /// Vault don't verify CA certificate
-    #[arg(long, env)]
+    #[arg(long, env = "ROTOMAGIC_VAULT_INSECURE")]
     vault_insecure: bool,
 
     /// Vault kv2 mount path
-    #[arg(long, env)]
+    #[arg(long, env = "ROTOMAGIC_VAULT_MOUNT")]
     vault_mount: String,
 
     /// Vault kv2 secret path
-    #[arg(long, env)]
+    #[arg(long, env = "ROTOMAGIC_VAULT_PATH")]
     vault_path: Option<String>,
     /*
         /// Verify access to files before proceeding
