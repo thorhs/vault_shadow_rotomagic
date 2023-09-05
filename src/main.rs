@@ -130,6 +130,13 @@ fn replace_password(
                         first_line.unwrap()
                     );
                 }
+
+                if let Some(h) = l.get(1) {
+                    if h.starts_with('!') {
+                        bail!("User {} is locked, refusing to set password", username);
+                    }
+                }
+
                 l[1] = hash.to_string();
                 first_line = Some(i);
             }
