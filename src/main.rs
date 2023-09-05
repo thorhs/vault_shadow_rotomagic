@@ -24,7 +24,7 @@ struct Options {
 
     /// Vault URL, if not set will use VAULT_ADDR
     #[arg(long, env)]
-    vault_addr: Option<String>,
+    vault_addr: String,
 
     /// Vault namespace
     #[arg(long, env)]
@@ -165,9 +165,7 @@ async fn write_output(options: &Options, output: Vec<Vec<String>>) -> Result<()>
 async fn create_vault_client(options: &Options) -> Result<VaultClient> {
     let mut vault_options = VaultClientSettingsBuilder::default();
 
-    if let Some(ref url) = options.vault_addr {
-        vault_options.address(url);
-    }
+    vault_options.address(&options.vault_addr);
 
     vault_options.namespace(options.vault_namespace.clone());
     vault_options.verify(!options.vault_insecure);
@@ -239,6 +237,9 @@ async fn main() -> Result<()> {
 
     println!("User: {}", options.user);
     println!("Shadow file: {:?}", options.shadow);
+    println!("Vault address: {}", options.vault_addr);
+    println!("Vault mount: {}", options.vault_mount);
+    println!("Vault secret path: {}", options.get_path());
 
     // println!("Safe: {:?}", options.safe);
     // println!("Lock: {:?}", options.lock);
