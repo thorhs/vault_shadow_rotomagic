@@ -1,0 +1,19 @@
+[Unit]
+Description=Vault Agent, used to keep machine token alive
+After=network.target
+ConditionEnvironment=ROTOMAGIC_USER
+ConditionEnvironment=ROTOMAGIC_VAULT_ADDR
+ConditionEnvironment=ROTOMAGIC_VAULT_MOUNT
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/tmp
+SyslogIdentifier=vault-shadow-rotomagic
+Restart=off
+ExecStart=/usr/local/bin/vault_shadow_rotomagic
+EnvironmentFile=/etc/sysconfig/vault_shadow_rotomagic
+
+[Install]
+WantedBy=multi-user.target

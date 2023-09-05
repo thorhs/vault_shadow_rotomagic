@@ -21,3 +21,18 @@ vaultrs = "0.7"
 source = "target/release/vault_shadow_rotomagic"
 dest = "/usr/local/bin/vault_shadow_rotomagic"
 mode = "0555"
+
+[[package.metadata.generate-rpm.assets]]
+source = "assets/vault_shadow_rotomagic.env"
+dest = "/etc/sysconfig/vault_shadow_rotomagic"
+mode = "0444"
+
+[[package.metadata.generate-rpm.assets]]
+source = "assets/vault_shadow_rotomagic.service"
+dest = "/usr/lib/systemd/system/vault-shadow-rotomagic.service"
+mode = "0444"
+
+[[package.metadata.generate-rpm.assets]]
+source = "assets/vault_shadow_rotomagic.timer"
+dest = "/usr/lib/systemd/system/vault-shadow-rotomagic.timer"
+mode = "0444"

@@ -1,0 +1,11 @@
+[Unit]
+Description=Vault Agent, used to keep machine token alive
+Wants=network-online.target
+
+[Timer]
+OnCalendar=*-*-* 06:00
+RandomizeDelaySec=60machine
+Persistent=true
+
+[Install]
+WantedBy=timers.target
