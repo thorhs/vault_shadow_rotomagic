@@ -11,47 +11,47 @@ use vaultrs::client::{VaultClient, VaultClientSettingsBuilder};
 #[command(author, version, about)]
 struct Options {
     /// Username to change password
-    #[arg(long)]
+    #[arg(long, env)]
     user: String,
 
     /// Password length
-    #[arg(long, default_value_t = 32)]
+    #[arg(long, env, default_value_t = 32)]
     password_length: u8,
 
     /// Shadow file to change (for testing or otherwise)
-    #[arg(long, default_value = "/etc/shadow")]
+    #[arg(long, env, default_value = "/etc/shadow")]
     shadow: PathBuf,
 
     /// Vault URL, if not set will use VAULT_ADDR
-    #[arg(long)]
+    #[arg(long, env)]
     vault_addr: Option<String>,
 
     /// Vault namespace
-    #[arg(long)]
+    #[arg(long, env)]
     vault_namespace: Option<String>,
 
     /// Vault token, if not set will use VAULT_TOKEN
-    #[arg(long)]
+    #[arg(long, env)]
     vault_token: Option<String>,
 
     /// Vault token file, if not set will use VAULT_TOKEN
-    #[arg(long)]
+    #[arg(long, env)]
     vault_token_path: Option<PathBuf>,
 
     /// Vault CA certificate, defaults to operating system CA store
-    #[arg(long)]
+    #[arg(long, env)]
     vault_ca_file: Option<PathBuf>,
 
     /// Vault don't verify CA certificate
-    #[arg(long)]
+    #[arg(long, env)]
     vault_insecure: bool,
 
     /// Vault kv2 mount path
-    #[arg(long)]
+    #[arg(long, env)]
     vault_mount: String,
 
     /// Vault kv2 secret path
-    #[arg(long)]
+    #[arg(long, env)]
     vault_path: Option<String>,
     /*
         /// Verify access to files before proceeding
