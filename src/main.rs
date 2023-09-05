@@ -213,7 +213,16 @@ async fn vault_store_password(
         &options.get_path(),
         &data,
     )
-    .await?;
+    .await
+    .map_err(|e| {
+        let err_str = format!(
+            "Error setting secret, mount: {}, path: {}.  {:?}",
+            &options.vault_mount,
+            &options.get_path(),
+            &e,
+        );
+        eyre!(e).wrap_err(err_str)
+    })?;
 
     Ok(())
 }
