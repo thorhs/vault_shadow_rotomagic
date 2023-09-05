@@ -1,9 +1,9 @@
 [Unit]
 Description=Vault Agent, used to keep machine token alive
 After=network.target
-ConditionEnvironment=ROTOMAGIC_USER
-ConditionEnvironment=ROTOMAGIC_VAULT_ADDR
-ConditionEnvironment=ROTOMAGIC_VAULT_MOUNT
+#ConditionEnvironment=ROTOMAGIC_USER
+#ConditionEnvironment=ROTOMAGIC_VAULT_ADDR
+#ConditionEnvironment=ROTOMAGIC_VAULT_MOUNT
 
 [Service]
 Type=simple
