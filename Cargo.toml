@@ -15,3 +15,8 @@ pwhash = "1"
 rand = "0.8"
 tokio = { version = "1", features = ["macros", "rt-multi-thread", "fs"] }
 vaultrs = "0.7"
+
+[[package.metadata.generate-rpm.assets]]
+source = "target/release/vault_shadow_rotomagic"
+dest = "/usr/local/bin/vault_shadow_rotomagic"
+mode = "0555"
