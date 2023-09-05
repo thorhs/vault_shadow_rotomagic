@@ -136,6 +136,10 @@ fn replace_password(
         }
     }
 
+    if first_line.is_none() {
+        bail!("User '{}' not found in shadow file", username);
+    }
+
     Ok(input)
 }
 
