@@ -3,6 +3,7 @@ name = "vault_shadow_rotomagic"
 version = "0.1.0"
 edition = "2021"
 authors = ["Thorhallur Sverrisson <toti@toti.is>"]
+license = "BSD"
 description = "Rotates a password directly in the shadow file, an stores the new password in vault"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
