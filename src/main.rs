@@ -1,5 +1,5 @@
 use clap::Parser;
-use color_eyre::{eyre::bail, eyre::eyre, Result};
+use color_eyre::{eyre::bail, eyre::eyre, eyre::WrapErr, Result};
 
 use std::io::Write;
 use std::path::PathBuf;
@@ -182,7 +182,9 @@ async fn create_vault_client(options: &Options) -> Result<VaultClient> {
     }
 
     if let Some(ref token_path) = options.vault_token_path {
-        let token = tokio::fs::read_to_string(token_path).await?;
+        let token = tokio::fs::read_to_string(token_path)
+            .await
+            .wrap_err_with(|| format!("Reading vault token from: {:?}", token_path))?;
         vault_options.token(token);
     }
 
