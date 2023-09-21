@@ -274,6 +274,8 @@ async fn main() -> Result<()> {
 
     write_output(&options, output).await?;
 
+    println!("Successfully rotated root password");
+
     Ok(())
 }
 
