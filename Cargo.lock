@@ -606,6 +606,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "include-lines"
+version = "1.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4be037b494f74d7bded0680228b3133bc268cbe50282f51c25fa46b890cfedb9"
+dependencies = [
+ "include-lines-proc",
+]
+
+[[package]]
+name = "include-lines-proc"
+version = "1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cd1ff2792810c5bb1b591ae8ac768bda8b0238a3b61cb546d062709f2a6a4f77"
+dependencies = [
+ "quote",
+ "syn 1.0.109",
+]
+
+[[package]]
 name = "indenter"
 version = "0.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -626,6 +645,15 @@ name = "ipnet"
 version = "2.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "28b29a3cd74f0f4598934efe3aeba42bae0eb4680554128851ebbecb02af14e6"
+
+[[package]]
+name = "isl_passwd_generator"
+version = "2.0.0"
+source = "git+https://gitlab.rb.is/rb747/isl_passwd_generator.git#82ada5e511a582b550860bfebdc7029ba5036571"
+dependencies = [
+ "include-lines",
+ "secrecy",
+]
 
 [[package]]
 name = "itoa"
@@ -995,6 +1023,15 @@ checksum = "d53dcdb7c9f8158937a7981b48accfd39a43af418591a5d008c7b22b5e1b7ca4"
 dependencies = [
  "ring",
  "untrusted",
+]
+
+[[package]]
+name = "secrecy"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9bd1c54ea06cfd2f6b63219704de0b9b4f72dcc2b8fdef820be6cd799780e91e"
+dependencies = [
+ "zeroize",
 ]
 
 [[package]]
@@ -1389,8 +1426,10 @@ dependencies = [
  "clap",
  "color-eyre",
  "gethostname",
+ "isl_passwd_generator",
  "pwhash",
  "rand",
+ "secrecy",
  "tokio",
  "vaultrs",
 ]
@@ -1615,3 +1654,9 @@ dependencies = [
  "cfg-if",
  "windows-sys",
 ]
+
+[[package]]
+name = "zeroize"
+version = "1.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2a0956f1ba7c7909bfb66c2e9e4124ab6f6482560f6628b5aaeba39207c9aad9"

@@ -12,8 +12,10 @@ description = "Rotates a password directly in the shadow file, an stores the new
 clap = { version = "4", features = ["env", "cargo", "derive"] }
 color-eyre = "0.6"
 gethostname = "0.4"
+isl_passwd_generator = { git = "https://gitlab.rb.is/rb747/isl_passwd_generator.git", version = "2.0.0" }
 pwhash = "1"
 rand = "0.8"
+secrecy = "0.8.0"
 tokio = { version = "1", features = ["macros", "rt-multi-thread", "fs"] }
 vaultrs = "0.7"
 

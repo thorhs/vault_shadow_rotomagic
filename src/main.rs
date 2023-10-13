@@ -1,5 +1,6 @@
 use clap::Parser;
 use color_eyre::{eyre::bail, eyre::eyre, eyre::WrapErr, Result};
+use secrecy::{ExposeSecret, SecretString};
 
 use std::io::Write;
 use std::path::PathBuf;
@@ -264,13 +265,13 @@ async fn main() -> Result<()> {
 
     let password = generate_password(&options)?;
 
-    let hash = pwhash::sha512_crypt::hash_with(salt.as_ref(), &password)?;
+    let hash = pwhash::sha512_crypt::hash_with(salt.as_ref(), password.expose_secret())?;
 
     let output = replace_password(input, &options.user, &hash)?;
 
     let vault_client = create_vault_client(&options).await?;
 
-    vault_store_password(&options, &vault_client, &password, &hash).await?;
+    vault_store_password(&options, &vault_client, password.expose_secret(), &hash).await?;
 
     write_output(&options, output).await?;
 
@@ -294,7 +295,7 @@ fn generate_salt(_options: &Options) -> Result<String> {
     Ok(salt_str.to_string())
 }
 
-fn generate_password(options: &Options) -> Result<String> {
+/* fn generate_password(options: &Options) -> Result<String> {
     use rand::Rng;
 
     let mut password = String::with_capacity(options.password_length.into());
@@ -306,4 +307,9 @@ fn generate_password(options: &Options) -> Result<String> {
     }
 
     Ok(password.to_string())
+} */
+
+fn generate_password(options: &Options) -> Result<SecretString> {
+    isl_passwd_generator::generate_password(options.password_length as usize)
+        .map_err(|e| color_eyre::eyre::eyre!("Error generating password: {}", e))
 }
